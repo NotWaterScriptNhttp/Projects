@@ -36,21 +36,45 @@ public class BitStream
         return ReadBytes;
     }
 
+    public byte ReadByte(bool move = true)
+    {
+        return Read(1, move).First();
+    }
+    public byte[] ReadBytes(int bytesToRead, bool move = true)
+    {
+        return Read(bytesToRead, move);
+    }
     public short ReadShort(bool move = true)
     {
         return BitConverter.ToInt16(Read(2, move), 0);
+    }
+    public ushort ReadUShort(bool move = true)
+    {
+        return BitConverter.ToUInt16(Read(2, move), 0);
     }
     public int ReadInt(bool move = true)
     {
         return BitConverter.ToInt32(Read(4, move), 0);
     }
+    public uint ReadUInt(bool move = true)
+    {
+        return BitConverter.ToUInt32(Read(4, move), 0);
+    }
     public long ReadLong(bool move = true)
     {
         return BitConverter.ToInt64(Read(8, move), 0);
     }
+    public ulong ReadULong(bool move = true)
+    {
+        return BitConverter.ToUInt64(Read(8, move), 0);
+    }
     public float ReadFloat(bool move = true)
     {
         return BitConverter.ToSingle(Read(4, move), 0);
+    }
+    public double ReadDouble(bool move = true)
+    {
+        return BitConverter.ToDouble(Read(8, move), 0);
     }
     public bool ReadBool(bool move = true)
     {
@@ -67,7 +91,7 @@ public class BitStream
         //Console.WriteLine("StrLen: "+StrLen+" ? readpos: "+readPos);
         string str = Encoding.UTF8.GetString(bytes, myReadPos, StrLen);
 
-        if(move)
+        if (move)
             readPos += StrLen;
 
         return str;
@@ -85,7 +109,15 @@ public class BitStream
     {
         WritenBytes.AddRange(BitConverter.GetBytes(v));
     }
+    public void Write(ushort v)
+    {
+        WritenBytes.AddRange(BitConverter.GetBytes(v));
+    }
     public void Write(int v)
+    {
+        WritenBytes.AddRange(BitConverter.GetBytes(v));
+    }
+    public void Write(uint v)
     {
         WritenBytes.AddRange(BitConverter.GetBytes(v));
     }
@@ -93,7 +125,15 @@ public class BitStream
     {
         WritenBytes.AddRange(BitConverter.GetBytes(v));
     }
+    public void Write(ulong v)
+    {
+        WritenBytes.AddRange(BitConverter.GetBytes(v));
+    }
     public void Write(float v)
+    {
+        WritenBytes.AddRange(BitConverter.GetBytes(v));
+    }
+    public void Write(double v)
     {
         WritenBytes.AddRange(BitConverter.GetBytes(v));
     }
@@ -127,7 +167,7 @@ public class BitStream
     {
         const string Base = "0123456789ABCDEF";
         string result = "";
-        while(num != 0)
+        while (num != 0)
         {
             result += Base[num % 16];
             num /= 16;
@@ -139,7 +179,7 @@ public class BitStream
         if (result.Length == 1)
             result = "0" + result;
 
-        return result+" ";
+        return result + " ";
     }
 
     public override string ToString()
