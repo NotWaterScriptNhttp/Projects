@@ -51,9 +51,6 @@ public class Beautifier
 
             bool HasSpace = ((currentPos + offset + word.Length) <= line.Length);
 
-            string tmp = "";
-            Console.WriteLine($"HasSpace: {HasSpace}, ?{(HasSpace ? (tmp = line.Substring(currentPos + offset, word.Length)) : "No space")}?, {tmp == word}");
-
             if (HasSpace && line.Substring(currentPos + offset, word.Length) == word)
                 return true;
 
